@@ -759,9 +759,6 @@ Mohon konfirmasi ketersediaan jadwal slot studio ini ya Admin. Terima kasih bany
                 <ShoppingBag size={14} className="text-slate-900" />
                 DETAIL INVOICE
               </span>
-              <span className="text-[10px] bg-white text-slate-600 px-2.5 py-1 rounded-none font-mono border border-zinc-200 font-bold">
-                PROFORMA
-              </span>
             </div>
 
             {/* Simulated physical layout receipt styling */}
