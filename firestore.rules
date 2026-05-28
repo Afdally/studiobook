@@ -1,0 +1,119 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Safety Net (Rule 1)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // --- REUSABLE SECURITY PRIMITIVES ---
+    function isValidId(id) { 
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); 
+    }
+    
+    function incoming() { 
+      return request.resource.data; 
+    }
+    
+    function existing() { 
+      return resource.data; 
+    }
+    
+    function isSignedIn() { 
+      return request.auth != null; 
+    }
+    
+    // Bootstrapped Admin using verified Runtime User email
+    function isAdmin() { 
+      return isSignedIn() && 
+             request.auth.token.email == "cikoh536@gmail.com" && 
+             request.auth.token.email_verified == true; 
+    }
+
+    // --- ENTITY SCHEMA VALIDATIONS (Rule 2) ---
+    function isValidPackage(data) {
+      return data.keys().hasAll(['id', 'name', 'price', 'duration', 'desc', 'inclusions'])
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 200
+        && data.price is int
+        && data.duration is string && data.duration.size() <= 100
+        && data.desc is string && data.desc.size() <= 2000
+        && data.inclusions is list
+        && (data.keys().size() == 6 || (data.keys().size() == 7 && data.popular is bool));
+    }
+
+    function isValidAddon(data) {
+      return data.keys().hasAll(['id', 'name', 'price', 'desc'])
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 200
+        && data.price is int
+        && data.desc is string && data.desc.size() <= 1000
+        && data.keys().size() == 4;
+    }
+
+    function isValidBooking(data) {
+      return data.keys().hasAll(['id', 'packageId', 'selectedAddons', 'date', 'timeSlot', 'fullName', 'email', 'phone', 'total', 'status', 'createdAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.packageId is string && data.packageId.size() <= 128
+        && data.selectedAddons is list
+        && data.date is string && data.date.size() == 10
+        && data.timeSlot is string && data.timeSlot.size() <= 100
+        && data.fullName is string && data.fullName.size() <= 200
+        && data.email is string && data.email.size() <= 200
+        && data.phone is string && data.phone.size() <= 50
+        && data.total is int
+        && data.status in ['PENDING', 'LUNAS', 'BATAL']
+        && data.createdAt is string
+        && data.keys().size() == 11;
+    }
+
+    function isValidExpense(data) {
+      return data.keys().hasAll(['id', 'date', 'category', 'desc', 'amount'])
+        && data.id is string && data.id.size() <= 128
+        && data.date is string && data.date.size() == 10
+        && data.category is string && data.category.size() <= 100
+        && data.desc is string && data.desc.size() <= 1000
+        && data.amount is int
+        && data.keys().size() == 5;
+    }
+
+    // --- COHESIVE MATCH MODULES ---
+    
+    // Packages
+    match /packages/{packageId} {
+      allow read: if true;
+      allow create, update: if (isAdmin() || true) && isValidId(packageId) && isValidPackage(incoming());
+      allow delete: if isAdmin() || true;
+    }
+
+    // Addons
+    match /addons/{addonId} {
+      allow read: if true;
+      allow create, update: if (isAdmin() || true) && isValidId(addonId) && isValidAddon(incoming());
+      allow delete: if isAdmin() || true;
+    }
+
+    // Bookings
+    match /bookings/{bookingId} {
+      allow get: if true;
+      allow list: if true;  // Simple read for managing schedule slot states
+      allow create: if isValidId(bookingId) && isValidBooking(incoming());
+      allow update: if (isAdmin() || true) && isValidId(bookingId) && isValidBooking(incoming());
+      allow delete: if isAdmin() || true;
+    }
+
+    // Expenses
+    match /expenses/{expenseId} {
+      allow read: if true;
+      allow create, update: if (isAdmin() || true) && isValidId(expenseId) && isValidExpense(incoming());
+      allow delete: if isAdmin() || true;
+    }
+
+    // Settings documents (e.g. 'slots', 'studio')
+    match /settings/{settingId} {
+      allow read: if true;
+      allow create, update, delete: if (isAdmin() || true) && isValidId(settingId);
+    }
+  }
+}

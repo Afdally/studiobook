@@ -1,0 +1,113 @@
+{
+  "entities": {
+    "PhotoPackage": {
+      "title": "PhotoPackage",
+      "description": "Studio photo packages offering various benefits, prices, durations, and images",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "duration": { "type": "string" },
+        "desc": { "type": "string" },
+        "inclusions": { "type": "array" },
+        "popular": { "type": "boolean" }
+      },
+      "required": ["id", "name", "price", "duration", "desc", "inclusions"]
+    },
+    "AddonOption": {
+      "title": "AddonOption",
+      "description": "Add-on options that customers can select for custom preferences during booking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "desc": { "type": "string" }
+      },
+      "required": ["id", "name", "price", "desc"]
+    },
+    "DBBooking": {
+      "title": "DBBooking",
+      "description": "A booking registered by a customer for studio photography",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "packageId": { "type": "string" },
+        "selectedAddons": { "type": "array" },
+        "date": { "type": "string" },
+        "timeSlot": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "total": { "type": "number" },
+        "status": { "type": "string", "enum": ["LUNAS", "PENDING", "BATAL"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "packageId", "selectedAddons", "date", "timeSlot", "fullName", "email", "phone", "total", "status", "createdAt"]
+    },
+    "SlotSettings": {
+      "title": "SlotSettings",
+      "description": "The operational schedules, blocked dates, and blocked timeslots for the studio",
+      "type": "object",
+      "properties": {
+        "operational": { "type": "object" },
+        "blockedDates": { "type": "array" },
+        "blockedSlots": { "type": "object" }
+      },
+      "required": ["operational", "blockedDates", "blockedSlots"]
+    },
+    "StudioSettings": {
+      "title": "StudioSettings",
+      "description": "The contact info, location address, and payment details for the photography studio",
+      "type": "object",
+      "properties": {
+        "studioName": { "type": "string" },
+        "studioDesc": { "type": "string" },
+        "paymentBank": { "type": "string" },
+        "paymentAccount": { "type": "string" },
+        "paymentName": { "type": "string" },
+        "whatsapp": { "type": "string" },
+        "email": { "type": "string" },
+        "instagram": { "type": "string" },
+        "address": { "type": "string" }
+      },
+      "required": ["studioName", "studioDesc", "paymentBank", "paymentAccount", "paymentName", "whatsapp", "email", "instagram", "address"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "A recorded finance expense for administrative tracking",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string" },
+        "category": { "type": "string" },
+        "desc": { "type": "string" },
+        "amount": { "type": "number" }
+      },
+      "required": ["id", "date", "category", "desc", "amount"]
+    }
+  },
+  "firestore": {
+    "packages": {
+      "schema": "PhotoPackage",
+      "description": "A collection of available photography packages"
+    },
+    "addons": {
+      "schema": "AddonOption",
+      "description": "A collection of available upgrades or add-ons"
+    },
+    "bookings": {
+      "schema": "DBBooking",
+      "description": "Client photo session booking requests"
+    },
+    "expenses": {
+      "schema": "Expense",
+      "description": "A collection of administrative financial expenses"
+    },
+    "settings": {
+      "schema": "StudioSettings",
+      "description": "Multi-document configuration for operations and studio contact settings like slots and studio"
+    }
+  }
+}

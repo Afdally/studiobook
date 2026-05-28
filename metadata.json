@@ -1,0 +1,6 @@
+{
+  "name": "studiobook",
+  "description": "Website portofolio dan pemesanan studio foto premium secara interaktif.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
