@@ -36,20 +36,18 @@ service cloud.firestore {
       return data.keys().hasAll(['id', 'name', 'price', 'duration', 'desc', 'inclusions'])
         && data.id is string && data.id.size() <= 128
         && data.name is string && data.name.size() <= 200
-        && data.price is int
+        && data.price is number
         && data.duration is string && data.duration.size() <= 100
         && data.desc is string && data.desc.size() <= 2000
-        && data.inclusions is list
-        && (data.keys().size() == 6 || (data.keys().size() == 7 && data.popular is bool));
+        && data.inclusions is list;
     }
 
     function isValidAddon(data) {
       return data.keys().hasAll(['id', 'name', 'price', 'desc'])
         && data.id is string && data.id.size() <= 128
         && data.name is string && data.name.size() <= 200
-        && data.price is int
-        && data.desc is string && data.desc.size() <= 1000
-        && data.keys().size() == 4;
+        && data.price is number
+        && data.desc is string && data.desc.size() <= 1000;
     }
 
     function isValidBooking(data) {
@@ -62,10 +60,9 @@ service cloud.firestore {
         && data.fullName is string && data.fullName.size() <= 200
         && data.email is string && data.email.size() <= 200
         && data.phone is string && data.phone.size() <= 50
-        && data.total is int
+        && data.total is number
         && data.status in ['PENDING', 'LUNAS', 'BATAL']
-        && data.createdAt is string
-        && data.keys().size() == 11;
+        && data.createdAt is string;
     }
 
     function isValidExpense(data) {
@@ -74,8 +71,7 @@ service cloud.firestore {
         && data.date is string && data.date.size() == 10
         && data.category is string && data.category.size() <= 100
         && data.desc is string && data.desc.size() <= 1000
-        && data.amount is int
-        && data.keys().size() == 5;
+        && data.amount is number;
     }
 
     // --- COHESIVE MATCH MODULES ---
