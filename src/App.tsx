@@ -225,7 +225,7 @@ export default function App() {
             <button
               id="cta-section-book-btn"
               onClick={startGeneralBooking}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold rounded-none uppercase tracking-widest transition-all active:scale-95 cursor-pointer shadow-sm"
+              className="w-full sm:w-auto justify-center inline-flex items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-mono text-xs font-bold rounded-none uppercase tracking-widest transition-all active:scale-95 cursor-pointer shadow-sm"
             >
               <span>Booking Jadwal Sekarang</span>
               <ArrowRight size={14} />

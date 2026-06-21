@@ -457,17 +457,17 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
   }, [bookings, bookingFilterStatus, bookingSearch]);
 
   return (
-    <div className="flex h-screen bg-zinc-100 text-zinc-800 font-sans overflow-hidden">
+    <div className="flex flex-col md:flex-row h-screen bg-zinc-100 text-zinc-800 font-sans overflow-hidden">
       
       {/* SIDE NAVIGATION DRAWER */}
-      <aside className="w-64 bg-zinc-950 text-zinc-300 flex flex-col justify-between border-r border-zinc-900 z-10 shrink-0">
-        <div>
+      <aside className="w-full md:w-64 bg-zinc-950 text-zinc-300 flex flex-row md:flex-col justify-between md:border-r border-b border-zinc-900 z-10 shrink-0 overflow-x-auto md:overflow-hidden::-webkit-scrollbar { display: none; } scrollbar-width: none;">
+        <div className="flex flex-row md:flex-col items-center md:items-stretch min-w-max md:min-w-0">
           {/* Logo Brand Brand Details */}
-          <div className="p-6 border-b border-zinc-900 flex items-center gap-3">
+          <div className="p-4 md:p-6 md:border-b border-zinc-900 flex items-center gap-3 shrink-0">
             <div className="w-8 h-8 rounded-full bg-white text-zinc-950 flex items-center justify-center font-bold">
               S
             </div>
-            <div>
+            <div className="hidden md:block">
               <span className="text-sm font-bold tracking-tight text-white uppercase font-display block leading-none">
                 StudioBook.
               </span>
@@ -478,7 +478,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
           </div>
 
           {/* Nav Links */}
-          <nav className="p-4 space-y-1">
+          <nav className="flex flex-row md:flex-col p-2 md:p-4 gap-1 md:gap-0 md:space-y-1 items-center md:items-stretch">
             {[
               { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
               { id: "bookings", label: "Booking", icon: Calendar },
@@ -493,14 +493,14 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id as any)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-xs font-mono font-bold tracking-wide transition-all ${
+                  className={`flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 text-xs font-mono font-bold tracking-wide transition-all shrink-0 ${
                     isActive
-                      ? "bg-zinc-900 text-[#10B981] border-l-2 border-[#10B981]"
-                      : "hover:bg-zinc-900 hover:text-white"
+                      ? "bg-zinc-900 text-[#10B981] md:border-l-2 md:border-b-0 border-b-2 border-[#10B981]"
+                      : "hover:bg-zinc-900 hover:text-white border-b-2 border-transparent md:border-b-0"
                   }`}
                 >
                   <Icon size={14} className={isActive ? "text-[#10B981]" : ""} />
-                  {item.label}
+                  <span className="hidden sm:inline md:inline">{item.label}</span>
                 </button>
               );
             })}
@@ -508,13 +508,13 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
         </div>
 
         {/* Foot Action Button */}
-        <div className="p-4 border-t border-zinc-900">
+        <div className="p-2 md:p-4 md:border-t border-zinc-900 flex items-center shrink-0">
           <button
             onClick={onLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 hover:bg-red-950/40 text-rose-400 hover:text-rose-300 text-xs font-mono font-bold transition-all"
+            className="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 hover:bg-red-950/40 text-rose-400 hover:text-rose-300 text-xs font-mono font-bold transition-all rounded-md md:rounded-none"
           >
             <LogOut size={14} />
-            Keluar Portal
+            <span className="hidden sm:inline md:inline">Keluar</span>
           </button>
         </div>
       </aside>
@@ -522,9 +522,9 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
       {/* CORE WORKSPACE VIEW */}
       <main className="flex-1 flex flex-col overflow-hidden bg-[#fafafa]">
         {/* Top Header Controls bar */}
-        <header className="h-16 border-b border-zinc-200 bg-white flex items-center justify-between px-8 shrink-0 shadow-sm">
-          <div>
-            <h1 className="text-xl font-light font-display tracking-tight text-zinc-900 uppercase">
+        <header className="h-auto md:h-16 py-4 md:py-0 border-b border-zinc-200 bg-white flex flex-col md:flex-row items-center justify-between px-4 md:px-8 shrink-0 shadow-sm gap-3 md:gap-0">
+          <div className="text-center md:text-left">
+            <h1 className="text-lg md:text-xl font-light font-display tracking-tight text-zinc-900 uppercase">
               {activeTab === "dashboard" && "Dashboard Overview"}
               {activeTab === "bookings" && "Daftar Booking Masuk"}
               {activeTab === "packages" && "Manajemen Paket & Add-on"}
@@ -561,7 +561,7 @@ export default function AdminPanel({ onLogout }: AdminPanelProps) {
                 className="space-y-8"
               >
                 {/* 4 Cards Grid Metrics */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
                   
                   {/* Metric 1 */}
                   <div className="bg-white p-6 border border-zinc-200 rounded-none shadow-sm flex flex-col justify-between min-h-[120px]">

@@ -74,12 +74,12 @@ export default function Hero({ onStartBooking }: HeroProps) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-4 w-full"
+              className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-4 w-full"
             >
               <button
                 id="hero-book-now-btn"
                 onClick={onStartBooking}
-                className="group relative flex items-center gap-2 px-8 py-4 bg-slate-900 text-white font-mono text-xs font-bold rounded-none uppercase tracking-widest transition-all duration-300 shadow-sm hover:shadow-md hover:bg-slate-800 active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto justify-center group relative flex items-center gap-2 px-8 py-4 bg-slate-900 text-white font-mono text-xs font-bold rounded-none uppercase tracking-widest transition-all duration-300 shadow-sm hover:shadow-md hover:bg-slate-800 active:scale-95 cursor-pointer"
               >
                 <span>Reservasi Sekarang</span>
                 <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-300" />
@@ -88,7 +88,7 @@ export default function Hero({ onStartBooking }: HeroProps) {
               <button
                 id="hero-explore-packages-btn"
                 onClick={scrollToPackages}
-                className="flex items-center gap-2 px-7 py-4 bg-white hover:bg-zinc-150 text-slate-905 font-mono text-xs font-bold rounded-none border border-zinc-200 hover:border-slate-300 transition-all duration-300 active:scale-95 cursor-pointer uppercase tracking-widest"
+                className="w-full sm:w-auto justify-center flex items-center gap-2 px-7 py-4 bg-white hover:bg-zinc-150 text-slate-905 font-mono text-xs font-bold rounded-none border border-zinc-200 hover:border-slate-300 transition-all duration-300 active:scale-95 cursor-pointer uppercase tracking-widest"
               >
                 <span>Lihat Paket Foto</span>
                 <ArrowDown size={14} className="animate-bounce" />
@@ -100,7 +100,7 @@ export default function Hero({ onStartBooking }: HeroProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 1.0, delay: 0.5 }}
-              className="grid grid-cols-3 gap-8 mt-12 pt-8 border-t border-zinc-200 w-full max-w-lg"
+              className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 mt-10 sm:mt-12 pt-8 border-t border-zinc-200 w-full max-w-lg"
             >
               <div className="text-left">
                 <div className="flex items-center gap-1.5 text-slate-400 mb-1">
