@@ -296,25 +296,25 @@ Mohon konfirmasi ketersediaan jadwal slot studio ini ya Admin. Terima kasih bany
   ];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/40 text-slate-800 flex items-center justify-center p-0 md:p-6 backdrop-blur-md">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/40 text-slate-800 flex items-start md:items-center justify-center p-0 md:p-6 backdrop-blur-md">
       {/* Background patterns */}
       <div className="fixed inset-0 pointer-events-none opacity-5">
         <div className="absolute top-[20%] right-[30%] w-[400px] h-[400px] bg-slate-500 rounded-full blur-[120px]" />
       </div>
 
-      <div className="relative w-full max-w-6xl bg-white md:rounded-none border border-zinc-250 shadow-2xl flex flex-col md:flex-row overflow-hidden min-h-screen md:min-h-0 md:max-h-[85vh]">
+      <div className="relative w-full max-w-6xl bg-white md:rounded-none border border-zinc-250 shadow-2xl flex flex-col md:flex-row md:overflow-hidden min-h-screen md:min-h-0 md:max-h-[85vh]">
         
         {/* UPPER/MAIN CLOSE TRIGGER */}
         <button
           id="close-booking-wizard-btn"
           onClick={onClose}
-          className="absolute top-5 right-5 z-20 p-2.5 bg-white hover:bg-zinc-100 text-slate-500 hover:text-slate-950 rounded-none transition-colors border border-zinc-200"
+          className="fixed md:absolute top-5 right-5 z-20 p-2.5 bg-white hover:bg-zinc-100 text-slate-500 hover:text-slate-950 rounded-none transition-colors border border-zinc-200"
         >
           <X size={18} />
         </button>
 
         {/* LEFT COLUMN: THE STEPPING FORM CONTAINER */}
-        <div className="flex-1 p-6 md:p-10 flex flex-col justify-between overflow-y-auto">
+        <div className="flex-1 p-6 pt-16 md:pt-10 md:p-10 flex flex-col justify-between md:overflow-y-auto">
           
           {/* Header Progress Indicators */}
           <div className="mb-8">
@@ -751,7 +751,7 @@ Mohon konfirmasi ketersediaan jadwal slot studio ini ya Admin. Terima kasih bany
         </div>
 
         {/* RIGHT COLUMN: THE PERSISTENT SIDEBAR INVOICE */}
-        <div className="w-full md:w-[360px] bg-zinc-50 border-t md:border-t-0 md:border-l border-zinc-200 p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
+        <div className="w-full md:w-[360px] bg-zinc-50 border-t md:border-t-0 md:border-l border-zinc-200 p-6 md:p-8 flex flex-col justify-between md:overflow-y-auto">
           <div>
             {/* Invoice upper label */}
             <div className="flex items-center justify-between mb-6 border-b border-zinc-200 pb-4">
